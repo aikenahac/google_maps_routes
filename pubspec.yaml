@@ -1,6 +1,6 @@
 name: google_maps_routes
-description: A package for drawing routes on Google Maps.
-version: 0.0.1
+description: A package for drawing routes on Google Maps by using the Google Directions API.
+version: 0.0.2
 homepage: https://github.com/aikenahac/google_maps_routes#readme
 
 environment:
