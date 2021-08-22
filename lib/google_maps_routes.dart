@@ -2,9 +2,10 @@ library google_maps_routes;
 
 /// Importing necessary packages
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
+
+enum TravelModes { driving, bicycling, transit, walking }
 
 /// A library for creating a route over google maps with the directions API
 class MapsRoutes {
@@ -27,7 +28,8 @@ class MapsRoutes {
       double? endLon,
       String routeName,
       Color routeColor,
-      String googleApiKey) async {
+      String googleApiKey,
+      TravelMode travelMode) async {
     late PolylinePoints routePoints = PolylinePoints();
     List<LatLng> routeCoordinates = [];
 
@@ -41,10 +43,10 @@ class MapsRoutes {
 
     /// If the coordinates are not null, it creates a route between the two points
     PolylineResult result = await routePoints.getRouteBetweenCoordinates(
-      googleApiKey,
-      PointLatLng(startLat, startLon),
-      PointLatLng(endLat, endLon),
-    );
+        googleApiKey,
+        PointLatLng(startLat, startLon),
+        PointLatLng(endLat, endLon),
+        travelMode: travelMode);
 
     /// Adds coordinates to the route coordinates list
     if (result.points.isNotEmpty) {
@@ -66,8 +68,30 @@ class MapsRoutes {
 
   /// Function that creates the actual route between multiple points
   Future<void> drawRoute(List<LatLng> points, String routeName,
-      Color routeColor, String googleApiKey) async {
+      Color routeColor, String googleApiKey, { TravelModes? travelMode }) async {
     var previousPoint;
+    TravelMode travelType;
+    
+    if (travelMode != null) {
+      switch(travelMode) {
+        case TravelModes.driving:
+          travelType = TravelMode.driving;
+          break;
+        case TravelModes.bicycling:
+          travelType = TravelMode.bicycling;
+          break;
+        case TravelModes.transit:
+          travelType = TravelMode.transit;
+          break;
+        case TravelModes.walking:
+          travelType = TravelMode.walking;
+          break;
+        default:
+          travelType = TravelMode.driving;
+      }
+    } else {
+      travelType = TravelMode.driving;
+    }
 
     /// Iterates over the points and creates a route between each pair
     for (var i = 0; i < points.length; i++) {
@@ -85,7 +109,8 @@ class MapsRoutes {
             nextPoint.longitude,
             '${_replaceWhiteSpaces(routeName)}+$i',
             routeColor,
-            googleApiKey);
+            googleApiKey,
+            travelType);
       }
 
       /// If the previous point is not null it creates a route
@@ -98,7 +123,8 @@ class MapsRoutes {
             point.longitude,
             '${_replaceWhiteSpaces(routeName)}+$i',
             routeColor,
-            googleApiKey);
+            googleApiKey,
+            travelType);
       }
     }
   }

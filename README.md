@@ -50,6 +50,19 @@ To create a route, just call the following function:
 await route.drawRoute(points, routeName, color, googleApiKey);
 ```
 
+To use a different travel mode, use the travelMode parameter.
+
+```dart
+/// Options: driving, bicycling, transit, walking
+await route.drawRoute(
+    points,
+    routeName,
+    color,
+    googleApiKey,
+    travelMode: TravelModes.walking
+);
+```
+
 To display the polylines you need to add a polylines parameter to your google map widget.
 
 ```dart

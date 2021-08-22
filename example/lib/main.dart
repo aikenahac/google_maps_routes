@@ -59,7 +59,7 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await route.drawRoute(points, 'Test routes',
-              Color.fromRGBO(130, 78, 210, 1.0), googleApiKey);
+              Color.fromRGBO(130, 78, 210, 1.0), googleApiKey, travelMode: TravelModes.walking);
         },
       ),
     );

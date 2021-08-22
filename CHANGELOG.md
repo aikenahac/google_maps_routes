@@ -3,3 +3,5 @@
 * Draw routes on google maps with the directions API
 
 ## [0.0.2] Provide better documentation
+
+## [1.0.0] Add support for travel modes
