@@ -68,12 +68,13 @@ class MapsRoutes {
 
   /// Function that creates the actual route between multiple points
   Future<void> drawRoute(List<LatLng> points, String routeName,
-      Color routeColor, String googleApiKey, { TravelModes? travelMode }) async {
+      Color routeColor, String googleApiKey,
+      {TravelModes? travelMode}) async {
     var previousPoint;
     TravelMode travelType;
-    
+
     if (travelMode != null) {
-      switch(travelMode) {
+      switch (travelMode) {
         case TravelModes.driving:
           travelType = TravelMode.driving;
           break;
