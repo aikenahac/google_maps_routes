@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter/material.dart';
 
+/// Choices between modes of travel
 enum TravelModes { driving, bicycling, transit, walking }
 
 /// A library for creating a route over google maps with the directions API
@@ -12,10 +13,6 @@ class MapsRoutes {
   /// Replaces whitespaces in string with a single dash
   String _replaceWhiteSpaces(String str) {
     return str.replaceAll(' ', '-');
-  }
-
-  Set<Polyline> returnRoutes() {
-    return routes;
   }
 
   /// Function that creates a route between two points with directions API
@@ -71,6 +68,7 @@ class MapsRoutes {
     var previousPoint;
     TravelMode travelType;
 
+    /// Checks which travel mode is defined in the parameters
     if (travelMode != null) {
       switch (travelMode) {
         case TravelModes.driving:
@@ -88,7 +86,10 @@ class MapsRoutes {
         default:
           travelType = TravelMode.driving;
       }
-    } else {
+    }
+
+    /// If the travel mode is not defined, it uses the default travel mode
+    else {
       travelType = TravelMode.driving;
     }
 

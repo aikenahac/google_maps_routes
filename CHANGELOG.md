@@ -9,3 +9,5 @@
 ## [1.0.1] - Update readme
 
 ## [1.1.0] - Add option for distance calculation
+
+## [1.1.1] - Provide better code documentation

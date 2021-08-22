@@ -68,22 +68,16 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                width: 200,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.0)
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    totalDistance,
-                    style: TextStyle(
-                      fontSize: 25.0
-                    )
-                  ),
-                )
-              ),
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child:
+                        Text(totalDistance, style: TextStyle(fontSize: 25.0)),
+                  )),
             ),
           )
         ],
@@ -94,7 +88,8 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
               Color.fromRGBO(130, 78, 210, 1.0), googleApiKey,
               travelMode: TravelModes.walking);
           setState(() {
-            totalDistance = distanceCalculator.calculateRouteDistance(points, decimals: 1);
+            totalDistance =
+                distanceCalculator.calculateRouteDistance(points, decimals: 1);
           });
         },
       ),
