@@ -20,12 +20,12 @@ To use it you need a `List` of points like this:
 
 ```dart
 /// LatLng is included in google_maps_flutter
-List<LatLng> points = {
+List<LatLng> points = [
     LatLng(latitude, longitude),
     LatLng(latitude, longitude),
     LatLng(latitude, longitude),
     LatLng(latitude, longitude),
-}
+];
 ```
 
 Then you need to instantiate this plugin

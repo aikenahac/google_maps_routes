@@ -5,3 +5,5 @@
 ## [0.0.2] Provide better documentation
 
 ## [1.0.0] Add support for travel modes
+
+## [1.0.1] Update readme
