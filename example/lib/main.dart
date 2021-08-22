@@ -40,27 +40,62 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
   ];
 
   MapsRoutes route = new MapsRoutes();
+  DistanceCalculator distanceCalculator = new DistanceCalculator();
   String googleApiKey = 'YOUR KEY HERE';
+  String totalDistance = 'No route';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        zoomControlsEnabled: false,
-        polylines: route.routes,
-        initialCameraPosition: const CameraPosition(
-          zoom: 15.0,
-          target: LatLng(45.82917150748776, 14.63705454546316),
-        ),
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: GoogleMap(
+              zoomControlsEnabled: false,
+              polylines: route.routes,
+              initialCameraPosition: const CameraPosition(
+                zoom: 15.0,
+                target: LatLng(45.82917150748776, 14.63705454546316),
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: 200,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    totalDistance,
+                    style: TextStyle(
+                      fontSize: 25.0
+                    )
+                  ),
+                )
+              ),
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await route.drawRoute(points, 'Test routes',
               Color.fromRGBO(130, 78, 210, 1.0), googleApiKey,
               travelMode: TravelModes.walking);
+          setState(() {
+            totalDistance = distanceCalculator.calculateRouteDistance(points, decimals: 1);
+          });
         },
       ),
     );

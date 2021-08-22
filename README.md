@@ -77,6 +77,19 @@ If you ever want to clear the routes, just call:
 route.routes.clear();
 ```
 
+If you want to calculate the distance of the route use you call the following function with the same `List` of points you used for drawing the route. You can also use it by itself.
+
+```dart
+/// Initialize a calculator
+DistanceCalculator distanceCalculator = new DistanceCalculator();
+
+/// Call a function that returns a string
+/// Pass it the List of points
+/// By default it will return with 1 decimal point but you can pass an 
+/// option that changes that 
+distanceCalculator.calculateRouteDistance(points, decimals: 1);
+```
+
 ### Credits
 
 - [google maps](https://pub.dev/packages/google_maps_flutter) for providing the map
