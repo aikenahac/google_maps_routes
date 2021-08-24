@@ -39,7 +39,7 @@ To create a route, just call the following function:
 ```dart
 /// routeName is a string and can be anything; it can include spaces but
 /// they will be replaced with a dash
-/// example: 'Example route'
+/// example: 'Example route' turns into 'Example-route'
 
 /// color is a Color type and will be used as the polyline color:
 /// example: Color.fromRGBO(130, 78, 210, 1.0)
