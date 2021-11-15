@@ -16,7 +16,7 @@ class MapsRoutes {
   }
 
   /// Function that creates a route between two points with directions API
-  void _createRouteFragment(
+  _createRouteFragment(
       double? startLat,
       double? startLon,
       double? endLat,
@@ -102,7 +102,7 @@ class MapsRoutes {
       if (previousPoint == null) {
         var nextPoint = points[i + 1];
         previousPoint = point;
-        _createRouteFragment(
+        await _createRouteFragment(
             point.latitude,
             point.longitude,
             nextPoint.latitude,
@@ -116,7 +116,7 @@ class MapsRoutes {
       /// If the previous point is not null it creates a route
       /// between the previous and current point
       else {
-        _createRouteFragment(
+        await _createRouteFragment(
             previousPoint.latitude,
             previousPoint.longitude,
             point.latitude,
