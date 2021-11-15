@@ -11,3 +11,5 @@
 ## [1.1.0] - Add option for distance calculation
 
 ## [1.1.1] - Provide better code documentation
+
+## [1.1.2] - Bug fixes
