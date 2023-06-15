@@ -10,7 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_polyline_points: ^1.0.0
+  flutter_polyline_points:
+    git:
+      url: https://github.com/hamza39460/flutter_polyline_points.git
+      ref: master # branch name
   google_maps_flutter: ^2.0.3
 
 dev_dependencies:
