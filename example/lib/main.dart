@@ -43,7 +43,7 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
 
   MapsRoutes route = MapsRoutes();
   DistanceCalculator distanceCalculator = DistanceCalculator();
-  String googleApiKey = 'AIzaSyCJ7Uwc41KdBiqbctJgqbOThpiFYXWhsho';
+  String googleApiKey = '<revoked>';
   String totalDistance = 'No route';
 
   @override
