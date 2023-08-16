@@ -5,10 +5,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_routes/google_maps_routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,32 +18,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MapsRoutesExample(title: 'GMR Demo Home'),
+      home: const MapsRoutesExample(title: 'GMR Demo Home'),
     );
   }
 }
 
 class MapsRoutesExample extends StatefulWidget {
-  MapsRoutesExample({Key? key, required this.title}) : super(key: key);
+  const MapsRoutesExample({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MapsRoutesExampleState createState() => _MapsRoutesExampleState();
+  State<MapsRoutesExample> createState() => _MapsRoutesExampleState();
 }
 
 class _MapsRoutesExampleState extends State<MapsRoutesExample> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
-  List<LatLng> points = [
+  List<LatLng> points = const [
     LatLng(45.82917150748776, 14.63705454546316),
     LatLng(45.833828635680355, 14.636544256202207),
     LatLng(45.851254420031296, 14.624331708344428),
     LatLng(45.84794984187217, 14.605434384742317)
   ];
 
-  MapsRoutes route = new MapsRoutes();
-  DistanceCalculator distanceCalculator = new DistanceCalculator();
-  String googleApiKey = 'YOUR KEY HERE';
+  MapsRoutes route = MapsRoutes();
+  DistanceCalculator distanceCalculator = DistanceCalculator();
+  String googleApiKey = 'AIzaSyCJ7Uwc41KdBiqbctJgqbOThpiFYXWhsho';
   String totalDistance = 'No route';
 
   @override
@@ -75,8 +77,10 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Align(
                     alignment: Alignment.center,
-                    child:
-                        Text(totalDistance, style: TextStyle(fontSize: 25.0)),
+                    child: Text(
+                      totalDistance,
+                      style: const TextStyle(fontSize: 25.0),
+                    ),
                   )),
             ),
           )
@@ -84,12 +88,18 @@ class _MapsRoutesExampleState extends State<MapsRoutesExample> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await route.drawRoute(points, 'Test routes',
-              Color.fromRGBO(130, 78, 210, 1.0), googleApiKey,
-              travelMode: TravelModes.walking);
+          await route.drawRoute(
+            points,
+            'Test routes',
+            const Color.fromRGBO(130, 78, 210, 1.0),
+            googleApiKey,
+            travelMode: TravelModes.walking,
+          );
           setState(() {
-            totalDistance =
-                distanceCalculator.calculateRouteDistance(points, decimals: 1);
+            final distanceInMeters =
+                distanceCalculator.calculateRouteDistance(points);
+            final distanceInKm = distanceInMeters / 1000;
+            totalDistance = '${distanceInKm.toStringAsFixed(2)} km}';
           });
         },
       ),

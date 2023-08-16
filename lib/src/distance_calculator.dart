@@ -4,21 +4,25 @@ import 'dart:math' show cos, sqrt, asin;
 
 /// Class for the distance calculator
 class DistanceCalculator {
-  /// Calculates the distance between two points
-  double _routeDistance(lat1, lon1, lat2, lon2) {
+  /// Calculates the distance between two points.
+  ///
+  /// Points are defined by latitudes and longitudes
+  ///
+  /// First point: [lat1], [lon1]
+  ///
+  /// Second point: [lat2], [lon2]
+  double _routeDistance(double lat1, double lon1, double lat2, double lon2) {
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
-        c(((lat2 - lat1) as num) * p) / 2 +
-        c((lat1 as num) * p) *
-            c((lat2 as num) * p) *
-            (1 - c(((lon2 - lon1) as num) * p)) /
-            2;
+        c(((lat2 - lat1)) * p) / 2 +
+        c((lat1) * p) * c((lat2) * p) * (1 - c((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
   }
 
-  /// Calculates the distance between all points in a list
-  String calculateRouteDistance(List<LatLng> points, {decimals}) {
+  /// Calculates the distance between [points]
+  /// and returns the total distance in meters
+  double calculateRouteDistance(List<LatLng> points, {int? decimals}) {
     double totalDistance = 0.0;
 
     /// Defaults the number of decimals to 1 if not specified
@@ -35,9 +39,9 @@ class DistanceCalculator {
       );
     }
 
-    print('TOTAL DISTANCE: ${totalDistance.toStringAsFixed(decimals)} km');
+    final double totalDistanceInMeters = totalDistance * 1000;
 
-    /// Returns the total distance in km
-    return '${totalDistance.toStringAsFixed(decimals)} km';
+    /// Returns the total distance in meters
+    return totalDistanceInMeters;
   }
 }

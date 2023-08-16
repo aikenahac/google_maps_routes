@@ -66,9 +66,7 @@ await route.drawRoute(
 To display the polylines you need to add a polylines parameter to your google map widget.
 
 ```dart
-GoogleMap(
-    polylines: route.routes
-)
+GoogleMap(polylines: route.routes),
 ```
 
 If you ever want to clear the routes, just call:

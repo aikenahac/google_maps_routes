@@ -17,45 +17,41 @@ class MapsRoutes {
 
   /// Function that creates a route between two points with directions API
   _createRouteFragment(
-      double? startLat,
-      double? startLon,
-      double? endLat,
-      double? endLon,
-      String routeName,
-      Color routeColor,
-      String googleApiKey,
-      TravelMode travelMode) async {
+    double startLat,
+    double startLon,
+    double endLat,
+    double endLon,
+    String routeName,
+    Color routeColor,
+    String googleApiKey,
+    TravelMode travelMode,
+  ) async {
     late PolylinePoints routePoints = PolylinePoints();
     List<LatLng> routeCoordinates = [];
 
-    /// If the coordinates are null, it returns an empty route
-    if (startLat == null ||
-        startLon == null ||
-        endLat == null ||
-        endLon == null) {
-      return;
-    }
-
     /// If the coordinates are not null, it creates a route between the two points
     PolylineResult result = await routePoints.getRouteBetweenCoordinates(
-        googleApiKey,
-        PointLatLng(startLat, startLon),
-        PointLatLng(endLat, endLon),
-        travelMode: travelMode);
+      googleApiKey,
+      PointLatLng(startLat, startLon),
+      PointLatLng(endLat, endLon),
+      travelMode: travelMode,
+    );
 
     /// Adds coordinates to the route coordinates list
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        routeCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    }
+    result.points.forEach((PointLatLng point) {
+      routeCoordinates.add(LatLng(point.latitude, point.longitude));
+    });
 
     /// Sets a polyline ID
     PolylineId id = PolylineId('route-$routeName');
 
     /// Creates a polyline with the route coordinates
     Polyline route = Polyline(
-        polylineId: id, color: routeColor, points: routeCoordinates, width: 3);
+      polylineId: id,
+      color: routeColor,
+      points: routeCoordinates,
+      width: 3,
+    );
 
     /// Adds the route to the routes list
     routes.add(route);
@@ -65,7 +61,6 @@ class MapsRoutes {
   Future<void> drawRoute(List<LatLng> points, String routeName,
       Color routeColor, String googleApiKey,
       {TravelModes? travelMode}) async {
-    var previousPoint;
     TravelMode travelType;
 
     /// Checks which travel mode is defined in the parameters
@@ -94,38 +89,20 @@ class MapsRoutes {
     }
 
     /// Iterates over the points and creates a route between each pair
-    for (var i = 0; i < points.length; i++) {
-      var point = points[i];
+    for (int i = 0; i < points.length - 1; i++) {
+      LatLng currentPoint = points[i];
+      LatLng nextPoint = points[i + 1];
 
-      /// If the previous point is null it creates a route
-      /// from the first and second point
-      if (previousPoint == null) {
-        var nextPoint = points[i + 1];
-        previousPoint = point;
-        await _createRouteFragment(
-            point.latitude,
-            point.longitude,
-            nextPoint.latitude,
-            nextPoint.longitude,
-            '${_replaceWhiteSpaces(routeName)}+$i',
-            routeColor,
-            googleApiKey,
-            travelType);
-      }
-
-      /// If the previous point is not null it creates a route
-      /// between the previous and current point
-      else {
-        await _createRouteFragment(
-            previousPoint.latitude,
-            previousPoint.longitude,
-            point.latitude,
-            point.longitude,
-            '${_replaceWhiteSpaces(routeName)}+$i',
-            routeColor,
-            googleApiKey,
-            travelType);
-      }
+      await _createRouteFragment(
+        currentPoint.latitude,
+        currentPoint.longitude,
+        nextPoint.latitude,
+        nextPoint.longitude,
+        '${_replaceWhiteSpaces(routeName)}+$i',
+        routeColor,
+        googleApiKey,
+        travelType,
+      );
     }
   }
 }
