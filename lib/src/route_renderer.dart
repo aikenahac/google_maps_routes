@@ -23,7 +23,7 @@ class MapsRoutes {
     double endLon,
     String routeName,
     Color routeColor,
-    int routeWidth
+    int routeWidth,
     String googleApiKey,
     TravelMode travelMode,
   ) async {
