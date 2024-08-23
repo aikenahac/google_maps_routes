@@ -23,6 +23,7 @@ class MapsRoutes {
     double endLon,
     String routeName,
     Color routeColor,
+    int routeWidth
     String googleApiKey,
     TravelMode travelMode,
   ) async {
@@ -50,7 +51,7 @@ class MapsRoutes {
       polylineId: id,
       color: routeColor,
       points: routeCoordinates,
-      width: 3,
+      width: routeWidth,
     );
 
     /// Adds the route to the routes list
@@ -59,7 +60,7 @@ class MapsRoutes {
 
   /// Function that creates the actual route between multiple points
   Future<void> drawRoute(List<LatLng> points, String routeName,
-      Color routeColor, String googleApiKey,
+      Color routeColor, int routeWidth , String googleApiKey,
       {TravelModes? travelMode}) async {
     TravelMode travelType;
 
@@ -100,6 +101,7 @@ class MapsRoutes {
         nextPoint.longitude,
         '${_replaceWhiteSpaces(routeName)}+$i',
         routeColor,
+        routeWidth,
         googleApiKey,
         travelType,
       );
