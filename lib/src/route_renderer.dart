@@ -23,9 +23,9 @@ class MapsRoutes {
     double endLon,
     String routeName,
     Color routeColor,
-    int routeWidth,
     String googleApiKey,
     TravelMode travelMode,
+    int routeWidth,
   ) async {
     late PolylinePoints routePoints = PolylinePoints();
     List<LatLng> routeCoordinates = [];
@@ -59,9 +59,14 @@ class MapsRoutes {
   }
 
   /// Function that creates the actual route between multiple points
-  Future<void> drawRoute(List<LatLng> points, String routeName,
-      Color routeColor, int routeWidth , String googleApiKey,
-      {TravelModes? travelMode}) async {
+  Future<void> drawRoute(
+    List<LatLng> points,
+    String routeName,
+    Color routeColor,
+    String googleApiKey, {
+    TravelModes? travelMode,
+    int? routeWidth,
+  }) async {
     TravelMode travelType;
 
     /// Checks which travel mode is defined in the parameters
@@ -101,9 +106,9 @@ class MapsRoutes {
         nextPoint.longitude,
         '${_replaceWhiteSpaces(routeName)}+$i',
         routeColor,
-        routeWidth,
         googleApiKey,
         travelType,
+        routeWidth ?? 3,
       );
     }
   }
